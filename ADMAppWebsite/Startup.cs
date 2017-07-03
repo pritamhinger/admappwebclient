@@ -57,9 +57,9 @@ namespace ADMAppWebsite
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions {
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
-                Authority = "https://winauthservice.azurewebsites.net/",
-                //RequireHttpsMetadata = false,
-                ClientId = "2beaf9f4-9eeb-4219-983e-ae8e454b70e6",
+                Authority = "http://localhost:5000",
+                RequireHttpsMetadata = false,
+                ClientId = "admapp",
                 SaveTokens = true
             //}).UseOpenIdConnectAuthentication(new OpenIdConnectOptions {
             //    AuthenticationScheme = "oidc",
