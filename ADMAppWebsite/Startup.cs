@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ADMAppWebsite
 {
@@ -46,6 +47,29 @@ namespace ADMAppWebsite
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions {
+                AuthenticationScheme = "Cookies"
+            });
+
+            JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+            
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions {
+                AuthenticationScheme = "oidc",
+                SignInScheme = "Cookies",
+                Authority = "https://winauthservice.azurewebsites.net/",
+                //RequireHttpsMetadata = false,
+                ClientId = "2beaf9f4-9eeb-4219-983e-ae8e454b70e6",
+                SaveTokens = true
+            //}).UseOpenIdConnectAuthentication(new OpenIdConnectOptions {
+            //    AuthenticationScheme = "oidc",
+            //    DisplayName = "Azure AD",
+            //    SignInScheme = "Cookies",
+            //    Authority = $"https://login.microsoftonline.com/{tenantId}",
+            //    RequireHttpsMetadata = false,
+            //    ClientId = "2beaf9f4-9eeb-4219-983e-ae8e454b70e6",
+            //    SaveTokens = true
+            });
 
             app.UseStaticFiles();
 
